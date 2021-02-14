@@ -20,6 +20,7 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stm32f4xx_hal.h" 
+#include "string.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -45,7 +46,8 @@ ADC_HandleTypeDef hadc1;
 UART_HandleTypeDef huart2;
 
 /* USER CODE BEGIN PV */
-
+char trans_str[64] ={0,};
+uint16_t adc = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -104,10 +106,13 @@ int main(void)
     /* USER CODE END WHILE */
     HAL_ADC_Start(&hadc1);// start ADC
 		HAL_ADC_PollForConversion(&hadc1,100); //waitig for ADC
-		i=HAL_ADC_GetValue(&hadc1);
+		adc = HAL_ADC_GetValue(&hadc1);
 		HAL_ADC_Stop(&hadc1);
-		HAL_UART_Transmit(&huart2, str,16, 0xFFFF);
+		snprintf(trans_str, 63, "\n ADC %d\n ", adc);
+		HAL_UART_Transmit(&huart2, (uint8_t*)trans_str, strlen(trans_str), 1000);
 		HAL_Delay(1000);
+		  //HAL_UART_Transmit(&huart2, str,16, 0xFFFF);
+		  //HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
