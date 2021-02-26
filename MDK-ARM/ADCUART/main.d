@@ -32,3 +32,4 @@ adcuart\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h
 adcuart\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h
 adcuart\main.o: ../Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h
 adcuart\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\string.h
+adcuart\main.o: C:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h
