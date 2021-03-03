@@ -28,14 +28,13 @@ Project File Date:  02/27/2021
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'ADCUART'
 compiling main.c...
+../Core/Src/main.c(138): warning:  #223-D: function "strlen" declared implicitly
+  		HAL_UART_Transmit(&huart2, (uint8_t*)trans_str, strlen(trans_str), 1000);
+../Core/Src/main.c: 1 warning, 0 errors
 linking...
-<<<<<<< HEAD
-Program Size: Code=7024 RO-data=456 RW-data=20 ZI-data=2260  
-=======
-Program Size: Code=6920 RO-data=456 RW-data=16 ZI-data=1256  
->>>>>>> 8ecce1eb198cb220125d0c969cec1d02c9801c6e
+Program Size: Code=7628 RO-data=456 RW-data=20 ZI-data=2260  
 FromELF: creating hex file...
-"ADCUART\ADCUART.axf" - 0 Error(s), 0 Warning(s).
+"ADCUART\ADCUART.axf" - 0 Error(s), 1 Warning(s).
 
 <h2>Software Packages used:</h2>
 

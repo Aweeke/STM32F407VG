@@ -99,19 +99,18 @@ int main(void)
   MX_ADC1_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-<<<<<<< HEAD
+
 	
 	uint16_t mas[900],j;
   HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&adc,4);	
 	
-=======
 struct {
 	uint16_t ch1;
 	}adc;
 
 	HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&adc,4);
 	char buf[20];
->>>>>>> 8ecce1eb198cb220125d0c969cec1d02c9801c6e
+	
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -123,11 +122,10 @@ struct {
 				for (;j<sizeof(mas);j++)
 				{
     /* USER CODE END WHILE */
-<<<<<<< HEAD
+
 		  HAL_ADC_Start(&hadc1);// start ADC
 		  HAL_ADC_PollForConversion(&hadc1,100); //waitig for ADC
-		  adc = HAL_ADC_GetValue(&hadc1);
-			mas[j] = adc;
+		  mas[j] = HAL_ADC_GetValue(&hadc1);
 					//Buffer[i] = HAL_ADC_GetValue(&hadc1);
 		  HAL_ADC_Stop(&hadc1);
 				}
@@ -142,10 +140,9 @@ struct {
 		
 			//HAL_UART_Transmit(&huart2,(uint8_t*)buf,sprintf(buf,"ch1 = %d\n\r",adc.ch1),1000);
 		  //HAL_Delay(500);
-=======
+
 			HAL_UART_Transmit(&huart2,(uint8_t*)buf,sprintf(buf,"ch1 = %d\n\r",adc.ch1),1000);
 		  HAL_Delay(500);
->>>>>>> 8ecce1eb198cb220125d0c969cec1d02c9801c6e
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
