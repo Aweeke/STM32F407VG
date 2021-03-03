@@ -20,7 +20,8 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "stdio.h"
-#include "stm32f4xx.h" 
+#include "stm32f4xx.h"
+#include "string.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -49,7 +50,6 @@ UART_HandleTypeDef huart2;
 /* USER CODE BEGIN PV */
 char trans_str[1000] ={0,};
 uint16_t adc = 0;
-uint8_t buffer[1000];
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -104,13 +104,6 @@ int main(void)
 	uint16_t mas[900],j;
   HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&adc,4);	
 	
-struct {
-	uint16_t ch1;
-	}adc;
-
-	HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&adc,4);
-	char buf[20];
-	
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -126,7 +119,6 @@ struct {
 		  HAL_ADC_Start(&hadc1);// start ADC
 		  HAL_ADC_PollForConversion(&hadc1,100); //waitig for ADC
 		  mas[j] = HAL_ADC_GetValue(&hadc1);
-					//Buffer[i] = HAL_ADC_GetValue(&hadc1);
 		  HAL_ADC_Stop(&hadc1);
 				}
 		}
@@ -138,11 +130,6 @@ struct {
 		HAL_UART_Transmit(&huart2, (uint8_t*)trans_str, strlen(trans_str), 1000);
 		HAL_Delay(500);
 		
-			//HAL_UART_Transmit(&huart2,(uint8_t*)buf,sprintf(buf,"ch1 = %d\n\r",adc.ch1),1000);
-		  //HAL_Delay(500);
-
-			HAL_UART_Transmit(&huart2,(uint8_t*)buf,sprintf(buf,"ch1 = %d\n\r",adc.ch1),1000);
-		  HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
