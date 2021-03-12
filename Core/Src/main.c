@@ -19,9 +19,8 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
-#include "stdio.h"
 #include "stm32f4xx.h"
-#include "string.h"
+#include "stdio.h"
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
 
@@ -38,7 +37,8 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-
+char data[50];
+uint32_t adcbilgi[2];
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -46,10 +46,11 @@ ADC_HandleTypeDef hadc1;
 DMA_HandleTypeDef hdma_adc1;
 
 UART_HandleTypeDef huart2;
+DMA_HandleTypeDef hdma_usart2_tx;
+DMA_HandleTypeDef hdma_usart2_rx;
 
 /* USER CODE BEGIN PV */
-char trans_str[1000] ={0,};
-uint16_t adc = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -99,37 +100,19 @@ int main(void)
   MX_ADC1_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
+	HAL_ADC_Start_DMA(&hadc1,(uint32_t *)adcbilgi,1);
 
-	
-	uint16_t mas[900],j;
-  HAL_ADC_Start_DMA(&hadc1,(uint32_t*)&adc,4);	
-	
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-		while (j<900)
-			{
-				for (;j<sizeof(mas);j++)
-				{
     /* USER CODE END WHILE */
-
-		  HAL_ADC_Start(&hadc1);// start ADC
-		  HAL_ADC_PollForConversion(&hadc1,100); //waitig for ADC
-		  mas[j] = HAL_ADC_GetValue(&hadc1);
-		  HAL_ADC_Stop(&hadc1);
-				}
-		}
-			//for (j=1;j<sizeof(mas);j++)
-			//{
-				snprintf(trans_str,4000,"Buffer = %d",mas[j]);
-	  //printf("%d", Buffer[i] );
-			//}
-		HAL_UART_Transmit(&huart2, (uint8_t*)trans_str, strlen(trans_str), 1000);
-		HAL_Delay(500);
+  sprintf(data,"ADC:%i \r\n",adcbilgi[0]);
 		
+		HAL_UART_Transmit(&huart2,(uint8_t *) data,10,1000);
+		HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
   /* USER CODE END 3 */
@@ -202,7 +185,7 @@ static void MX_ADC1_Init(void)
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.NbrOfConversion = 1;
-  hadc1.Init.DMAContinuousRequests = DISABLE;
+  hadc1.Init.DMAContinuousRequests = ENABLE;
   hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
   {
@@ -264,8 +247,15 @@ static void MX_DMA_Init(void)
 
   /* DMA controller clock enable */
   __HAL_RCC_DMA2_CLK_ENABLE();
+  __HAL_RCC_DMA1_CLK_ENABLE();
 
   /* DMA interrupt init */
+  /* DMA1_Stream5_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream5_IRQn);
+  /* DMA1_Stream6_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Stream6_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Stream6_IRQn);
   /* DMA2_Stream0_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
