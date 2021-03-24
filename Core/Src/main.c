@@ -21,11 +21,9 @@
 #include "main.h"
 #include "stm32f4xx.h"
 #include "stdio.h"
+#include "string.h"
 /* Private includes ----------------------------------------------------------*/
-/* USER CODE BEGIN Includes */
-
-/* USER CODE END Includes */
-
+#define ADC_BUF_LEN 256
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN PTD */
 
@@ -35,10 +33,13 @@
 /* USER CODE BEGIN PD */
 /* USER CODE END PD */
 
+uint16_t adc_buf[ADC_BUF_LEN];
+char tr[128];
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
-char data[50];
-uint32_t adcbilgi[2];
+//char data[500];
+//uint16_t buffer [1000];
+
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -100,7 +101,8 @@ int main(void)
   MX_ADC1_Init();
   MX_USART2_UART_Init();
   /* USER CODE BEGIN 2 */
-	HAL_ADC_Start_DMA(&hadc1,(uint32_t *)adcbilgi,1);
+	
+	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buf, ADC_BUF_LEN);
 
   /* USER CODE END 2 */
 
@@ -109,9 +111,9 @@ int main(void)
   while (1)
   {
     /* USER CODE END WHILE */
-  sprintf(data,"ADC:%i \r\n",adcbilgi[0]);
+		sprintf(tr,"ADC:%i \r\n",adc_buf[128]);
 		
-		HAL_UART_Transmit(&huart2,(uint8_t *) data,10,1000);
+		HAL_UART_Transmit(&huart2,(uint8_t *) tr,128,1000);
 		HAL_Delay(500);
     /* USER CODE BEGIN 3 */
   }
@@ -185,7 +187,7 @@ static void MX_ADC1_Init(void)
   hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
   hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
   hadc1.Init.NbrOfConversion = 1;
-  hadc1.Init.DMAContinuousRequests = ENABLE;
+  hadc1.Init.DMAContinuousRequests = DISABLE;
   hadc1.Init.EOCSelection = ADC_EOC_SINGLE_CONV;
   if (HAL_ADC_Init(&hadc1) != HAL_OK)
   {
