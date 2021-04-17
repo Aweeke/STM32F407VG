@@ -110,17 +110,34 @@ uint8_t str[] = "USART TRANSMIT\r\n";
   /* Infinite loop */
 	
 	char trans_str[100];
-	#define ADC_BUF_LEN 256
+	#define ADC_BUF_LEN 100
 	uint16_t adc_buf[ADC_BUF_LEN];
 	char tr[518];
+	char trans_str1[64] ={0,};
+uint16_t adc = 0;
 	
 	HAL_ADC_Start_DMA(&hadc1, (uint32_t*)adc_buf, ADC_BUF_LEN);
+	
   /* USER CODE BEGIN WHILE */
   while (1)
   {
     /* USER CODE END WHILE */
-	//HAL_UART_Transmit(&huart2, str, 16, 0xFFFF);
-		snprintf(trans_str, 100, " ADC = %d \n\r",adc_buf );
+		
+		///////////checking adc
+		
+		//HAL_ADC_Start(&hadc1);// start ADC
+		//HAL_ADC_PollForConversion(&hadc1,100); //waitig for ADC
+		//adc = HAL_ADC_GetValue(&hadc1);
+		//HAL_ADC_Stop(&hadc1);
+		//if (adc > 10)
+		//{
+			
+			//snprintf(trans_str1, 63, " ADC = %d \n\r", adc );
+			//HAL_UART_Transmit(&huart2, (uint8_t*)trans_str1, strlen(trans_str1), 1000);
+			//HAL_Delay(1);
+		//}
+		
+		snprintf(trans_str, 100, " ADC(u) = %u \n\r",adc_buf[0] );
 			HAL_UART_Transmit(&huart2, (uint8_t*)trans_str, strlen(trans_str), 0xFFFF);
 		HAL_Delay(1000);
     /* USER CODE BEGIN 3 */
