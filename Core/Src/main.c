@@ -77,7 +77,7 @@ int main(void)
 {
   /* USER CODE BEGIN 1 */
 uint8_t str[] = "USART TRANSMIT\r\n";
-uint8_t message[] = "Test_2";
+uint8_t message[] = "Test";
   /* USER CODE END 1 */
 	
 	/////////////////////////////////////////////////////////////////////
