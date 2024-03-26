@@ -3,55 +3,70 @@
 <pre>
 <h1>µVision Build Log</h1>
 <h2>Tool Versions:</h2>
-IDE-Version: µVision V5.33.0.0
-Copyright (C) 2020 ARM Ltd and ARM Germany GmbH. All rights reserved.
-License Information: Mikhail Sinkin, SUAI, LIC=----
+IDE-Version: µVision V5.36.0.0
+Copyright (C) 2021 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: Mikhail Sinkin, SUAI, LIC=03C6R-KQ3D1-KPUZY-I96YR-KGD9T-6073H
  
 Tool Versions:
-Toolchain:       MDK-Lite  Version: 5.33.0.0
+Toolchain:       MDK-ARM Plus  Version: 5.36.0.0
 Toolchain Path:  C:\Keil_v5\ARM\ARMCC\Bin
 C Compiler:      Armcc.exe V5.06 update 7 (build 960)
 Assembler:       Armasm.exe V5.06 update 7 (build 960)
 Linker/Locator:  ArmLink.exe V5.06 update 7 (build 960)
 Library Manager: ArmAr.exe V5.06 update 7 (build 960)
 Hex Converter:   FromElf.exe V5.06 update 7 (build 960)
-CPU DLL:         SARMCM3.DLL V5.33.0.0
+CPU DLL:         SARMCM3.DLL V5.36.0.0
 Dialog DLL:      DCM.DLL V1.17.3.0
-Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.8.0
-Dialog DLL:      TCM.DLL V1.48.0.0
+Target DLL:      STLink\ST-LINKIII-KEIL_SWO.dll V3.0.9.0
+Dialog DLL:      TCM.DLL V1.53.0.0
  
 <h2>Project:</h2>
-C:\Users\aweek\Desktop\projects\TESTUART\TESTUART\MDK-ARM\TESTUART.uvprojx
-Project File Date:  04/17/2021
+C:\IAR_projects\git_test\MDK-ARM\TESTUART.uvprojx
+Project File Date:  03/26/2024
 
 <h2>Output:</h2>
 *** Using Compiler 'V5.06 update 7 (build 960)', folder: 'C:\Keil_v5\ARM\ARMCC\Bin'
 Build target 'TESTUART'
-"TESTUART\TESTUART.axf" - 0 Error(s), 0 Warning(s).
+compiling main.c...
+../Core/Src/main.c(79): warning:  #177-D: variable "str"  was declared but never referenced
+  uint8_t str[] = "USART TRANSMIT\r\n";
+../Core/Src/main.c(80): warning:  #177-D: variable "message"  was declared but never referenced
+  uint8_t message[] = "Test_2";
+../Core/Src/main.c(115): warning:  #177-D: variable "tr"  was declared but never referenced
+  	char tr[518];
+../Core/Src/main.c(116): warning:  #177-D: variable "trans_str1"  was declared but never referenced
+  	char trans_str1[64] ={0,};
+../Core/Src/main.c(117): warning:  #177-D: variable "adc"  was declared but never referenced
+  uint16_t adc = 0;
+../Core/Src/main.c: 5 warnings, 0 errors
+linking...
+Program Size: Code=6816 RO-data=456 RW-data=16 ZI-data=1456  
+FromELF: creating hex file...
+"TESTUART\TESTUART.axf" - 0 Error(s), 5 Warning(s).
 
 <h2>Software Packages used:</h2>
 
 Package Vendor: ARM
-                http://www.keil.com/pack/ARM.CMSIS.5.7.0.pack
-                ARM.CMSIS.5.7.0
-                CMSIS (Cortex Microcontroller Software Interface Standard)
-   * Component: CORE Version: 5.4.0
+                http://www.keil.com/pack/ARM.CMSIS.5.9.0.pack
+                ARM.CMSIS.5.9.0
+                CMSIS (Common Microcontroller Software Interface Standard)
+   * Component: CORE Version: 5.6.0
 
 Package Vendor: Keil
-                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.15.0.pack
-                Keil.STM32F4xx_DFP.2.15.0
+                http://www.keil.com/pack/Keil.STM32F4xx_DFP.2.16.0.pack
+                Keil.STM32F4xx_DFP.2.16.0
                 STMicroelectronics STM32F4 Series Device Support, Drivers and Examples
 
 <h2>Collection of Component include folders:</h2>
   .\RTE\_TESTUART
-  C:\Users\aweek\AppData\Local\Arm\Packs\ARM\CMSIS\5.7.0\CMSIS\Core\Include
-  C:\Users\aweek\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.15.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
+  C:\Users\ÒÐÊ òåñò\AppData\Local\Arm\Packs\ARM\CMSIS\5.9.0\CMSIS\Core\Include
+  C:\Users\ÒÐÊ òåñò\AppData\Local\Arm\Packs\Keil\STM32F4xx_DFP\2.16.0\Drivers\CMSIS\Device\ST\STM32F4xx\Include
 
 <h2>Collection of Component Files used:</h2>
 
-   * Component: ARM::CMSIS:CORE:5.4.0
+   * Component: ARM::CMSIS:CORE:5.6.0
       Include file:  CMSIS\Core\Include\tz_context.h
-Build Time Elapsed:  00:00:00
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
